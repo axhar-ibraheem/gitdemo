@@ -44,13 +44,20 @@ var list = document.getElementById("items");
 form.addEventListener("submit", function addItem(e) {
   e.preventDefault();
   var newItem = document.getElementById("item").value;
+  var name = document.getElementById("item2").value;
   var li = document.createElement("li");
   li.className = "list-group-item";
-  li.appendChild(document.createTextNode(newItem));
+  var newItemNode = document.createTextNode(newItem);
+  var nameNode = document.createTextNode(` ${name}`);
+  li.append(newItemNode, nameNode);
   var delButton = document.createElement("button");
-  delButton.className = "btn btn-danger btn-sm float-right delete";
+  delButton.className = "btn btn-danger btn-sm float-right delete ml-1";
   delButton.appendChild(document.createTextNode("X"));
+  var editButton = document.createElement("button");
+  editButton.className = "btn btn-dark btn-sm float-right";
+  editButton.appendChild(document.createTextNode("Edit"));
   li.appendChild(delButton);
+  li.appendChild(editButton);
   list.appendChild(li);
 });
 //delete event
@@ -69,4 +76,21 @@ for (let i = 0; i < li.length; i++) {
   editButton.className = "btn btn-dark btn-sm float-right";
   editButton.appendChild(document.createTextNode("Edit"));
   li[i].appendChild(editButton);
+}
+//filter
+var filter = document.getElementById("filter");
+filter.addEventListener("keyup", filterItems);
+function filterItems(e) {
+  var text = e.target.value.toLowerCase();
+  var items = list.getElementsByTagName("li");
+  Array.from(items).forEach(function (item) {
+    var itemNum = item.firstChild.textContent;
+    var itemName = item.childNodes[1].nodeValue;
+    var str = itemNum + (itemName != null ? itemName : "");
+    if (str.toLowerCase().indexOf(text) != -1) {
+      item.style.display = "block";
+    } else {
+      item.style.display = "none";
+    }
+  });
 }
