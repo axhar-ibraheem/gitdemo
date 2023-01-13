@@ -8,7 +8,7 @@ function submitForm(e) {
     name: name.value,
     email: email.value,
   };
+  var count = 0;
   var userDetailsString = JSON.stringify(userDetails);
-  console.log(userDetailsString);
-  localStorage.setItem(`userDetails:${name.value}`, userDetailsString);
+  localStorage.setItem(`userDetails: ${email.value}`, userDetailsString);
 }
