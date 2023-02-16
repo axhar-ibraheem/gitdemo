@@ -15,13 +15,13 @@ function submitForm(e) {
     phone: phone.value,
   };
   
-  axios.post("https://crudcrud.com/api/fa6ed1c346604722ad845f3eab545f9d/appointmentData", userDetails).then((res)=>{
+  axios.post("https://crudcrud.com/api/29e1057ec36f49b4b38aca07ab11cdcc/appointmentData", userDetails).then((res)=>{
   showUserOnScreen(res.data)
   }).catch(err=>console.log(err))
 }
 
 window.addEventListener("DOMContentLoaded",()=>{
-  axios.get("https://crudcrud.com/api/fa6ed1c346604722ad845f3eab545f9d/appointmentData").then((res)=>{
+  axios.get("https://crudcrud.com/api/29e1057ec36f49b4b38aca07ab11cdcc/appointmentData").then((res)=>{
      for(let i=0;i<res.data.length;i++){
       showUserOnScreen(res.data[i])
      }
@@ -39,8 +39,8 @@ function showUserOnScreen(userDetails){
   const nameTextNode = document.createTextNode(`${userDetails.name} - `);
   const emailTextNode = document.createTextNode(userDetails.email);
   const phoneTextNode = document.createTextNode(` - ${userDetails.phone} `);
-
   li.append(nameTextNode, emailTextNode, phoneTextNode);
+
   ///adding edit and delete buttons
   const delButton = document.createElement("button");
   const editButton = document.createElement("button");
@@ -53,16 +53,28 @@ function showUserOnScreen(userDetails){
   editButton.appendChild(editButtonNode);
   li.append(delButton, editButton);
   list.appendChild(li);
-}
 
-// function to remove user from ui and .
-list.addEventListener("click", deleteUser);
-function deleteUser(e) {
-  if (e.target.classList.contains("delete")) {
-    const li = e.target.parentElement;
-    list.removeChild(li);
-  }
-} //
+  delButton.addEventListener("click",()=>{
+    axios.delete(`https://crudcrud.com/api/29e1057ec36f49b4b38aca07ab11cdcc/appointmentData/${userDetails._id}`).then(()=>{
+      list.removeChild(li)
+    }).catch(e => console.log(e))
+  })
+}
+//   delButton.onclick = () => {
+//     deleteUser(`${userDetails._id}`)
+//   }
+
+//   function deleteUser(userId){
+//     axios.delete(`https://crudcrud.com/api/29e1057ec36f49b4b38aca07ab11cdcc/appointmentData/${userId}`).then(()=>{
+//       list.removeChild(li)
+//     }).catch(e => console.log(e))
+//   }
+// }
+
+
+
+
+ 
 
 //edit user functionality
 // list.addEventListener("click", editUser);
