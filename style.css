@@ -75,3 +75,7 @@ header {
   padding: 5px;
   margin: 5px;
 }
+.button {
+  color: black;
+  background: lightbrown;
+}
