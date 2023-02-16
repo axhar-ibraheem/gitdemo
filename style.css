@@ -29,7 +29,7 @@ header {
   margin: auto;
   width: 500px;
   overflow: auto;
-  padding: 3rem 2rem;
+  padding: .8rem 2rem;
 }
 
 #my-form {
@@ -46,7 +46,7 @@ header {
   padding: 8px;
   margin-bottom: 10px;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid #d5cbcb;
 }
 
 .btn {

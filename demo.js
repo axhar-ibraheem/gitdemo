@@ -16,12 +16,20 @@ function submitForm(e) {
   };
   
   axios.post("https://crudcrud.com/api/fa6ed1c346604722ad845f3eab545f9d/appointmentData", userDetails).then((res)=>{
-    
-    console.log(res.data)
+  showUserOnScreen(res.data)
   }).catch(err=>console.log(err))
-  showUserOnScreen(userDetails)
 }
- 
+
+window.addEventListener("DOMContentLoaded",()=>{
+  axios.get("https://crudcrud.com/api/fa6ed1c346604722ad845f3eab545f9d/appointmentData").then((res)=>{
+     for(let i=0;i<res.data.length;i++){
+      showUserOnScreen(res.data[i])
+     }
+  }).catch(err=>{
+    console.log(err)
+  })
+})
+
 //showing the users on the UI.
 
 function showUserOnScreen(userDetails){
@@ -51,7 +59,7 @@ function showUserOnScreen(userDetails){
 list.addEventListener("click", deleteUser);
 function deleteUser(e) {
   if (e.target.classList.contains("delete")) {
-    var li = e.target.parentElement;
+    const li = e.target.parentElement;
     list.removeChild(li);
   }
 } //
