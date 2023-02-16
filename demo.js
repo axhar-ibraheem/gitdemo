@@ -14,8 +14,8 @@ function submitForm(e) {
     email: email.value,
     phone: phone.value,
   };
-  
-  axios.post("https://crudcrud.com/api/29e1057ec36f49b4b38aca07ab11cdcc/appointmentData", userDetails).then((res)=>{
+  const endPointUrl = "https://crudcrud.com/api/29e1057ec36f49b4b38aca07ab11cdcc/appointmentData"
+  axios.post(endPointUrl, userDetails).then((res)=>{
   showUserOnScreen(res.data)
   }).catch(err=>console.log(err))
 }
@@ -57,36 +57,21 @@ function showUserOnScreen(userDetails){
   delButton.addEventListener("click",()=>{
     axios.delete(`https://crudcrud.com/api/29e1057ec36f49b4b38aca07ab11cdcc/appointmentData/${userDetails._id}`).then(()=>{
       list.removeChild(li)
-    }).catch(e => console.log(e))
+    }).catch(err => console.log(err))
+  })
+
+  editButton.addEventListener("click",()=>{
+    axios.delete(`https://crudcrud.com/api/29e1057ec36f49b4b38aca07ab11cdcc/appointmentData/${userDetails._id}`).then(()=>{
+      list.removeChild(li)
+      document.getElementById("name").value=userDetails.name;
+      document.getElementById("email").value=userDetails.email;
+      document.getElementById("phone").value=userDetails.phone;
+    }).catch(err=>console.log(err))
   })
 }
-//   delButton.onclick = () => {
-//     deleteUser(`${userDetails._id}`)
-//   }
-
-//   function deleteUser(userId){
-//     axios.delete(`https://crudcrud.com/api/29e1057ec36f49b4b38aca07ab11cdcc/appointmentData/${userId}`).then(()=>{
-//       list.removeChild(li)
-//     }).catch(e => console.log(e))
-//   }
-// }
-
-
-
 
  
 
-//edit user functionality
-// list.addEventListener("click", editUser);
-// function editUser(e) {
-//   if (e.target.classList.contains("edit")) {
-//     var li = e.target.parentElement;
-//     var email = li.childNodes[1].nodeValue;
-//     var obj = JSON.parse(localStorage.getItem(email));
-//     document.getElementById("name").value = obj.name;
-//     document.getElementById("email").value = obj.email;
-//     document.getElementById("phone").value = obj.phone;
-//     list.removeChild(li);
-//     localStorage.removeItem(obj.email);
-//   }
-// }
+ 
+
+ 
